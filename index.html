@@ -1,9 +1,906 @@
-<html>
-  <head>
-    <title>My Portfolio</title>
-  </head>
-  <body>
-    <h1>Hello, I'm ___</h1>
-    <p>Welcome to my portfolio website.</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ali Saleh | Software & Machine Learning Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Portfolio of Ali Saleh, Software Engineer and Machine Learning Engineer based in Modena, Italy."
+  />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card-bg: #0b1220;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.25);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 36px 24px 80px;
+      }
+    }
+
+    /* Top bar / nav */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #38bdf8, #0f172a 60%, #020617 100%);
+      color: white;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .top-links a {
+      color: var(--accent);
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(15, 23, 42, 0.75);
+    }
+
+    .top-links a:hover {
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    /* Hero / header */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr);
+      gap: 20px;
+      padding: 22px 20px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, #1d283a 0, #020617 52%, #000 100%);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 7fr) minmax(260px, 4fr);
+        padding: 26px 26px;
+      }
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      opacity: 0.35;
+      background:
+        radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.3), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(96, 165, 250, 0.35), transparent 60%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-main,
+    .hero-side {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      margin-bottom: 10px;
+    }
+
+    .hero-kicker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+    }
+
+    .hero-title {
+      font-size: clamp(1.9rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      max-width: 540px;
+    }
+
+    .hero-meta {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-meta strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #0b1120;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.45);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-0.5px);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.55);
+      color: var(--text-main);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(30, 64, 175, 0.65);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .hero-side-card {
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.85rem;
+    }
+
+    .hero-side-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-side-list {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+    }
+
+    .hero-side-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .hero-side-list span:first-child {
+      color: var(--text-main);
+    }
+
+    .hero-side-highlight {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.4);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Layout below hero */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr);
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 7fr) minmax(260px, 4fr);
+        align-items: flex-start;
+      }
+    }
+
+    .section {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), #020617);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      padding: 18px 18px 20px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .section + .section {
+      margin-top: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .section-kicker {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .section-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Experience timeline */
+    .timeline {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 5px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px var(--accent-soft);
+    }
+
+    .timeline-role {
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .timeline-company {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-meta span {
+      margin-right: 10px;
+    }
+
+    .timeline-points {
+      list-style: disc;
+      margin-left: 16px;
+      margin-top: 2px;
+      display: grid;
+      gap: 2px;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .skills-group {
+      padding: 10px 11px;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .skills-group-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .skills-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.8rem;
+    }
+
+    .chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .project-card {
+      padding: 10px 11px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+
+    .project-title {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .project-year {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .project-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .project-link {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Sidebar blocks */
+    .sidebar-block {
+      background: linear-gradient(160deg, #020617, #020617 40%, #020617 100%);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 16px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .sidebar-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .sidebar-list {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 22px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="top-bar">
+      <div class="logo-mark">AS</div>
+      <div class="top-links">
+        <!-- Replace with your real GitHub & LinkedIn URLs -->
+        <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <span>Modena, Italy</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-kicker">
+          <span class="hero-kicker-dot"></span>
+          Open to opportunities in ML & Backend
+        </div>
+        <h1 class="hero-title">Ali Saleh</h1>
+        <p class="hero-subtitle">
+          Software Engineer &amp; Machine Learning Engineer with experience
+          building data-intensive systems, search ranking services, and
+          production ML pipelines.
+        </p>
+        <p class="hero-meta">
+          <strong>Current:</strong> M.Sc. Artificial Intelligence @ University of Bologna<br />
+          <strong>Focus:</strong> Deep Learning, NLP, Recommender Systems, MLOps
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:a.saleh.m.a@gmail.com">
+            Contact me
+          </a>
+          <a class="btn btn-ghost" href="#projects">
+            View selected projects
+          </a>
+        </div>
+        <div class="hero-tags">
+          <span class="pill">Python</span>
+          <span class="pill">Golang</span>
+          <span class="pill">Django &amp; FastAPI</span>
+          <span class="pill">PyTorch &amp; TensorFlow</span>
+          <span class="pill">Elasticsearch</span>
+          <span class="pill">Docker &amp; Kubernetes</span>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <div class="hero-side-card">
+          <div class="hero-side-title">Quick facts</div>
+          <ul class="hero-side-list">
+            <li>
+              <span>Location</span>
+              <span>Modena, Italy</span>
+            </li>
+            <li>
+              <span>Email</span>
+              <span>a.saleh.m.a@gmail.com</span>
+            </li>
+            <li>
+              <span>Phone</span>
+              <span>+39 333 145 8179</span>
+            </li>
+          </ul>
+          <div class="hero-side-highlight">
+            I enjoy designing robust data architectures and production-grade
+            ML systems, from feature engineering to deployment and monitoring.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <main class="layout">
+      <!-- Main column -->
+      <div>
+        <!-- Experience -->
+        <section class="section" id="experience">
+          <div class="section-header">
+            <h2 class="section-title">Experience</h2>
+            <span class="section-kicker">4+ years across ML &amp; backend</span>
+          </div>
+          <div class="section-body">
+            <ul class="timeline">
+              <li class="timeline-item">
+                <div class="timeline-role">ML Engineer</div>
+                <div class="timeline-company">Jabama &mdash; Tehran, Iran</div>
+                <div class="timeline-meta">
+                  <span>Jun 2023 &ndash; Aug 2024</span>
+                  <span>Full-time, On-site</span>
+                </div>
+                <ul class="timeline-points">
+                  <li>
+                    Built and maintained services for a large-scale search
+                    application, including a backtest service for ranking models.
+                  </li>
+                  <li>
+                    Worked with Elasticsearch containing billions of user impression
+                    rows to optimize search relevance and performance.
+                  </li>
+                  <li>
+                    Deployed and maintained Golang services for marketing push
+                    notifications driven by user interactions.
+                  </li>
+                </ul>
+              </li>
+
+              <li class="timeline-item">
+                <div class="timeline-role">Software Engineer</div>
+                <div class="timeline-company">Enigma Investing &mdash; Tehran, Iran</div>
+                <div class="timeline-meta">
+                  <span>Jun 2022 &ndash; Sep 2023</span>
+                  <span>Full-time, On-site</span>
+                </div>
+                <ul class="timeline-points">
+                  <li>
+                    Developed a financial platform using Django and Django Channels
+                    to stream real-time stock data.
+                  </li>
+                  <li>
+                    Integrated Redis for high-speed streaming and caching of live
+                    market information.
+                  </li>
+                  <li>
+                    Deployed and maintained applications on Kubernetes clusters in
+                    cloud environments.
+                  </li>
+                </ul>
+              </li>
+
+              <li class="timeline-item">
+                <div class="timeline-role">Backend Developer</div>
+                <div class="timeline-company">SEFR Educational Solutions &mdash; Tehran, Iran</div>
+                <div class="timeline-meta">
+                  <span>Feb 2021 &ndash; Jan 2022</span>
+                  <span>Full-time, On-site</span>
+                </div>
+                <ul class="timeline-points">
+                  <li>
+                    Built RESTful APIs for large-scale Django systems with
+                    Dockerized deployments.
+                  </li>
+                  <li>
+                    Applied design patterns and query optimization to handle large
+                    datasets efficiently.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="section" id="projects">
+          <div class="section-header">
+            <h2 class="section-title">Selected Projects</h2>
+            <span class="section-kicker">Hands-on ML &amp; data-intensive systems</span>
+          </div>
+          <div class="section-body">
+            <div class="projects-grid">
+              <article class="project-card">
+                <div class="project-header">
+                  <div class="project-title">Oscillation Analysis</div>
+                  <div class="project-year">2025</div>
+                </div>
+                <p class="project-body">
+                  Full-stack web application for analyzing and crawling the U.S.
+                  stock market. Implemented analytical tools to identify stocks
+                  with strong oscillation behavior and short-term cyclic trends,
+                  using a ClickHouse database capable of processing ~3M rows/s.
+                </p>
+                <span class="badge">Streamlit</span>
+                <span class="badge">ClickHouse</span>
+                <span class="badge">Time Series</span>
+              </article>
+
+              <article class="project-card">
+                <div class="project-header">
+                  <div class="project-title">Spiking-MAML</div>
+                  <div class="project-year">2022 &ndash; 2023</div>
+                </div>
+                <p class="project-body">
+                  Interdisciplinary research project exploring meta-learning with
+                  spiking neurons for image classification. Used surrogate
+                  gradient and proxy learning methods to overcome
+                  non-differentiability issues.
+                </p>
+                <span class="badge">Spiking Neural Networks</span>
+                <span class="badge">Meta-learning</span>
+                <span class="badge">Computer Vision</span>
+                <!-- Replace # with GitHub repo if available -->
+                <div style="margin-top: 4px;">
+                  <a class="project-link" href="#" target="_blank" rel="noreferrer">
+                    View on GitHub
+                  </a>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-header">
+                  <div class="project-title">Watermarking of Generated Text</div>
+                  <div class="project-year">NLP</div>
+                </div>
+                <p class="project-body">
+                  Extended a summarization model with a watermarking algorithm to
+                  analyze the impact of watermarks on generated summaries.
+                </p>
+                <span class="badge">NLP</span>
+                <span class="badge">Text Watermarking</span>
+                <!-- Replace # with GitHub repo if available -->
+                <div style="margin-top: 4px;">
+                  <a class="project-link" href="#" target="_blank" rel="noreferrer">
+                    View on GitHub
+                  </a>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-header">
+                  <div class="project-title">Spotify Songs Clustering</div>
+                  <div class="project-year">ML</div>
+                </div>
+                <p class="project-body">
+                  Clustered Spotify tracks using scikit-learn and the Spotify API
+                  to build playlist-based recommendation experiments.
+                </p>
+                <span class="badge">Clustering</span>
+                <span class="badge">scikit-learn</span>
+                <span class="badge">Spotify API</span>
+                <div style="margin-top: 4px;">
+                  <a class="project-link" href="#" target="_blank" rel="noreferrer">
+                    View on GitHub
+                  </a>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-header">
+                  <div class="project-title">Speech Emotion Detection</div>
+                  <div class="project-year">DL</div>
+                </div>
+                <p class="project-body">
+                  Built an LSTM-based model to classify speech emotions using
+                  Librosa for acoustic feature extraction.
+                </p>
+                <span class="badge">LSTM</span>
+                <span class="badge">Librosa</span>
+                <span class="badge">Audio ML</span>
+                <div style="margin-top: 4px;">
+                  <a class="project-link" href="#" target="_blank" rel="noreferrer">
+                    View on GitHub
+                  </a>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-header">
+                  <div class="project-title">Credit Card Fraud Detection</div>
+                  <div class="project-year">DL</div>
+                </div>
+                <p class="project-body">
+                  Implemented an autoencoder in Keras to detect anomalies in
+                  transactional data for fraud detection.
+                </p>
+                <span class="badge">Autoencoders</span>
+                <span class="badge">Anomaly Detection</span>
+                <span class="badge">Keras</span>
+                <div style="margin-top: 4px;">
+                  <a class="project-link" href="#" target="_blank" rel="noreferrer">
+                    View on GitHub
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Education</h3>
+          <ul class="sidebar-list">
+            <li>
+              <strong>M.Sc. Artificial Intelligence</strong><br />
+              University of Bologna, Italy<br />
+              <span class="section-kicker">2024 &ndash; Present</span>
+            </li>
+            <li>
+              <strong>B.Sc. Computer Science</strong><br />
+              Shahid Beheshti University, Tehran, Iran<br />
+              <span class="section-kicker">2018 &ndash; 2022</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block" style="margin-top: 14px;">
+          <h3 class="sidebar-title">Core Skills</h3>
+          <div class="badge-list">
+            <span class="badge">Machine Learning</span>
+            <span class="badge">Deep Learning</span>
+            <span class="badge">NLP</span>
+            <span class="badge">Computer Vision</span>
+            <span class="badge">Recommender Systems</span>
+            <span class="badge">Time Series Analysis</span>
+            <span class="badge">Data Preprocessing</span>
+            <span class="badge">Statistical Analysis</span>
+            <span class="badge">OOP &amp; Design Patterns</span>
+            <span class="badge">Database Design</span>
+          </div>
+        </div>
+
+        <div class="sidebar-block" style="margin-top: 14px;">
+          <h3 class="sidebar-title">Tech Stack</h3>
+          <div class="skills-grid">
+            <div class="skills-group">
+              <div class="skills-group-title">Languages &amp; ML</div>
+              <div class="skills-chips">
+                <span class="chip">Python</span>
+                <span class="chip">Golang</span>
+                <span class="chip">SQL</span>
+                <span class="chip">JavaScript</span>
+                <span class="chip">PyTorch</span>
+                <span class="chip">TensorFlow</span>
+                <span class="chip">Keras</span>
+                <span class="chip">Pandas</span>
+                <span class="chip">NumPy</span>
+                <span class="chip">scikit-learn</span>
+              </div>
+            </div>
+
+            <div class="skills-group">
+              <div class="skills-group-title">Backend &amp; Data</div>
+              <div class="skills-chips">
+                <span class="chip">Django</span>
+                <span class="chip">Flask</span>
+                <span class="chip">FastAPI</span>
+                <span class="chip">Streamlit</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">MySQL</span>
+                <span class="chip">ClickHouse</span>
+                <span class="chip">Cassandra</span>
+                <span class="chip">MongoDB</span>
+                <span class="chip">Redis</span>
+                <span class="chip">Elasticsearch</span>
+              </div>
+            </div>
+
+            <div class="skills-group">
+              <div class="skills-group-title">DevOps &amp; Infra</div>
+              <div class="skills-chips">
+                <span class="chip">AWS</span>
+                <span class="chip">Linux</span>
+                <span class="chip">Docker</span>
+                <span class="chip">Kubernetes</span>
+                <span class="chip">Airflow</span>
+                <span class="chip">Kafka</span>
+                <span class="chip">RabbitMQ</span>
+                <span class="chip">Celery</span>
+                <span class="chip">Git</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-block" style="margin-top: 14px;">
+          <h3 class="sidebar-title">Interests</h3>
+          <p>
+            Deep Learning, NLP, LLMs, MLOps, Designing Data-Intensive
+            Applications, Database Design, Sports Analytics, Brain-Inspired
+            Learning.
+          </p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Built with 💻 &amp; ☕ by Ali Saleh. Hosted on GitHub Pages.
+    </footer>
+  </div>
+</body>
 </html>
